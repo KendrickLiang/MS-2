@@ -1,4 +1,16 @@
 mingM, nahianS, tanS, tangM -- 2018-10-15 10:47 \n
 Finished design.pdf
 
+nahianS, tanS, tangM -- 2018-10-16 10:38 \n
+With advice from Team BugBlog and Team Pineapple, we were able to revise our design doc. We modified our database schema so that blog_id would be the primary key instead of blog_title. This is an key feature because blog_id is matched to the user in the user table. In addition to that, we also added another table called ‘entries.’ Previously, we contained all of our entries in a single column, which will make our database cluttered and hard to manage. By adding another table, and connecting it to the blogs table by the corresponding blog_id, we are able to make our code more perspicuous. 
+
+mingM, tanS, tangM -- 2018-10-16 10:38 \n
+We absolutely loved this reading because it contained enough exaggerated situations that kept us entertained but also sounded vaguely familiar. One of our favorite lines is “Doing this all day leaves you in a state of mild aphasia as you look at people’s faces while they’re speaking and you don’t know they’ve finished because there’s no semicolon” because it has remnants of complete desperation that almost everyone who has ever worked on a coding project experiences.  The author does a brilliant job of summarizing the (occasional) pain of working in groups in unique situations that, after a more careful reading of it, turn out to be more relatable than we are ever willing to admit. 
+
+Actions/Protocols/Procedures To Make Our Project More Awesome:
+0. Communicate with our team efficiently and effectively and specify what exactly you are doing. Do not sweep anything under the rug.
+1. Live with the fact that we do not have enough time to make all our code “good”, but good enough
+2. Make snippets of code more clear with suitable names and annotate with helpful comments that detail what certain parts do 
+3. Comments/ Perspecuity/ Clarity/ OPTIMIZATION!!!!/ The internet is a dangerous place, make good enough code and leave.
+
 
