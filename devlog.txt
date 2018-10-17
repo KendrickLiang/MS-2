@@ -1,7 +1,7 @@
 mingM, nahianS, tanS, tangM -- 2018-10-15 10:47 \n
 Finished design.pdf
 
-nahianS, tanS, tangM -- 2018-10-16 10:38 \n
+mingM, nahianS, tanS, tangM -- 2018-10-16 10:38 \n
 With advice from Team BugBlog and Team Pineapple, we were able to revise our design doc. We modified our database schema so that blog_id would be the primary key instead of blog_title. This is an key feature because blog_id is matched to the user in the user table. In addition to that, we also added another table called ‘entries.’ Previously, we contained all of our entries in a single column, which will make our database cluttered and hard to manage. By adding another table, and connecting it to the blogs table by the corresponding blog_id, we are able to make our code more perspicuous. 
 
 mingM, tanS, tangM -- 2018-10-16 10:38 \n
