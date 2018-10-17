@@ -13,4 +13,5 @@ Actions/Protocols/Procedures To Make Our Project More Awesome:
 2. Make snippets of code more clear with suitable names and annotate with helpful comments that detail what certain parts do 
 3. Comments/ Perspecuity/ Clarity/ OPTIMIZATION!!!!/ The internet is a dangerous place, make good enough code and leave.
 
-
+mingM -- 2018-10-17 12:35 \n
+Added template files
