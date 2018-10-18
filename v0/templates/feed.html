@@ -1,7 +1,13 @@
+{% extends "base.html"%}
 {% block header %}
+Feed
 {% endblock %}
 {% block content %}
-
-
-
+<form action = "/logout">
+	<input type = "submit" value="Logout"> 
+</form>
+{% for key in articles%}
+{{key}}: {{articles[key]}}
+<br>
+{% endfor %}
 {% endblock %}

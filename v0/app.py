@@ -14,13 +14,19 @@ fileNames = {
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
 	if "username" in session:
-		return render_template(fileNames["feed"]) #Still missing arguments that will be going in
+		return render_template(fileNames["feed"], articles = getRandomBlogs()) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
 def checkUserInDatabase (username, password):
+    return True
 	# Code by database role
 
-def addUserToDatabase (username, password):
+def getRandomBlogs ():
+    return {
+        "Cool Title": "Awesome sause"
+        }
+#def addUserToDatabase (username, password):
+    #print("Doing sutff")
 	# Code by database role
 
 @app.route("/auth", methods = ["POST"])
@@ -33,9 +39,10 @@ def auth_page():
 
 @app.route("/logout")
 def logout():
-	session.pop("username")
-	flash("Logged out successfully")
-	return redirect(url_for(fileNames["login"]))
+    print("hello?")
+    session.pop("username")
+	#flash("Logged out successfully")
+    return redirect(url_for("input_field_page"))
 
 if __name__ == "__main__":
 	app.debug = True
