@@ -36,3 +36,12 @@ Actions/Protocols/Procedures To Make Our Project More Awesome:
 
 matthewM -- 2018-10-17 12:35 \n
 Added template files
+
+nahianS -- 2018-10-17 12:35 \n
+Added basic routing of login / logout functionality
+
+tangM -- 2018-10-17 12:35 \n
+Worked on database creation / modification code
+
+tanS -- 2018-10-17 12:35 \n
+Worked on formatting file structure within project
