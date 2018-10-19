@@ -2,6 +2,9 @@
 {% block header %}
 Login
 {% endblock %}
+{% block title %}
+Login
+{% endblock %}
 {% block content %}
 {% set msgs = get_flashed_messages() %}
 {% for each in msgs %}
@@ -9,9 +12,8 @@ Login
 <br>
 {% endfor %}
 	<form action = "/auth" method="POST">
-		<input type = "text" name = "username" placeholder="username">
-		<input type = "password" name = "password" placeholder="password"> 
+		<input type = "text" name = "username" placeholder="username" minlength="4" maxlength="10" required>
+		<input type = "password" name = "password" placeholder="password" minlength="4" maxlength="10" required> 
 		<input type = "submit" value="Submit"> 
 	</form>
-
 {% endblock %}
