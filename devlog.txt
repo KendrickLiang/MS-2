@@ -50,4 +50,4 @@ stefanT, michelleT -- 2018-10-18 12:31 \n
 Worked on database schema, changed blog_id to TEXT to allow for multiple blogs
 
 mingM, nahianS -- 2018-10-18 12:32 \n
-Completed feed page and login page. Added simple text output.
+Completed login and logout functionality. Implemeneted basic routing. Added feed displaying capabilities.
