@@ -10,8 +10,13 @@ P #00: Da Art of Storytellin'
     <title>{% block header %}{% endblock %}</title>
   </head>
   <body>
-  	{% block links %}
-  	{% endblock %}
+	<a href="/">Feed</a>
+	<a href="/search">Search</a>
+	<a href="/edit">Edit</a>
+	<a href="/new">New Blog</a>
+<form action = "/logout">
+	<input type = "submit" value="Logout"> 
+</form>
 <h1>{% block title %} {% endblock %}</h1>
 {% block content %}{% endblock %}
 {% block footer%} &copy MS^2{% endblock %}

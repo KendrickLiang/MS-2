@@ -42,11 +42,28 @@ def auth_page():
 	return redirect(url_for("input_field_page"))
 
 
-@app.route("/search", methods = ["GET"])
+def getBlog (query):
+	return {
+		query + '1': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
+		query + '2': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
+		query + '3': "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."
+	}
+
+@app.route("/search", methods = ["GET", "POST"])
 def search_page():
+	if ("searchQuery" in request.args):
+		return render_template(fileNames["search"], articles = getBlog(request.args["searchQuery"]))
+	# print (request.args["queryString"])
 	if "username" in session:
-		return render_template(fileNames["search"], articles = getRandomBlogs())
+		return render_template(fileNames["search"])
 	return render_template(fileNames["login"])
+
+@app.route("/edit", methods = ["GET", "POST"])
+def edit_page():
+	if "username" in session:
+		return render_template(fileNames["edit"])
+	return render_template(fileNames["login"])
+
 
 @app.route("/logout")
 def logout():
