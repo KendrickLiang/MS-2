@@ -41,11 +41,17 @@ def auth_page():
 		flash("Invalid Login Credentials.")
 	return redirect(url_for("input_field_page"))
 
+
+@app.route("/search", methods = ["GET"])
+def search_page():
+	if "username" in session:
+		return render_template(fileNames["search"], articles = getRandomBlogs())
+	return render_template(fileNames["login"])
+
 @app.route("/logout")
 def logout():
-    session.pop("username")
-	#flash("Logged out successfully")
-    return redirect(url_for("input_field_page"))
+	session.pop("username")
+	return redirect(url_for("input_field_page"))
 
 if __name__ == "__main__":
 	app.debug = True
