@@ -5,6 +5,15 @@ Feed
 {% block title %}
 Feed
 {% endblock %}
+{% block nav %}
+<a href="/">Feed</a>
+	<a href="/search">Search</a>
+	<a href="/edit">Edit</a>
+	<a href="/new">New Blog</a>
+	<form action = "/logout">
+		<input type = "submit" value="Logout"> 
+	</form>
+{% endblock %}
 {% block content %}
 {% for key in articles%}
 <h3>{{key}}</h3>{{articles[key]}}

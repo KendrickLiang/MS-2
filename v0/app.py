@@ -8,7 +8,8 @@ fileNames = {
 	"search": "search.html",
 	"edit": "edit.html",
 	"login": "login.html",
-	"feed": "feed.html"
+	"feed": "feed.html",
+	"editPage": "editPage.html"
 }
 
 @app.route("/", methods = ["POST", "GET"])
@@ -58,12 +59,34 @@ def search_page():
 		return render_template(fileNames["search"])
 	return render_template(fileNames["login"])
 
+def getMyEntries (userId):
+	myEntry = {
+		"123" : {"Why cats are cool" : "Cats are the coolest animal"},
+		"235" : {"How to become rich" : "Buy money"},
+		"344" : {"Grapes are nasty" : "Grapes taste horrible!"}
+	}
+	return myEntry
+
 @app.route("/edit", methods = ["GET", "POST"])
 def edit_page():
+	if ("entryId" in request.args):
+		idEntryV = request.args["entryId"];
+		titleV = list(getMyEntries(121)[idEntryV].keys())[0]
+		bodyV = getMyEntries(121)[idEntryV][titleV]
+		return render_template(fileNames["editPage"], idEntry = idEntryV, title = titleV, body = bodyV)
 	if "username" in session:
-		return render_template(fileNames["edit"])
+		return render_template(fileNames["edit"], entries = getMyEntries(121))
 	return render_template(fileNames["login"])
 
+def saveEntry(entryId, newTitle, newBody):
+	print(entryId)
+	print(newTitle)
+	print(newBody)
+
+@app.route("/save", methods = ["POST"])
+def save_entry ():
+	saveEntry(request.form['entryId'], request.form['title'], request.form['body'])
+	return redirect(url_for("edit_page"))
 
 @app.route("/logout")
 def logout():

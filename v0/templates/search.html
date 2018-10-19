@@ -4,6 +4,15 @@
 {% block title %}
 Search
 {% endblock %}
+{% block nav %}
+<a href="/">Feed</a>
+	<a href="/search">Search</a>
+	<a href="/edit">Edit</a>
+	<a href="/new">New Blog</a>
+	<form action = "/logout">
+		<input type = "submit" value="Logout"> 
+	</form>
+{% endblock %}
 {% block content %}
 <form action="/search">
 	<input type="text" name="searchQuery" placeholder="blog title">
