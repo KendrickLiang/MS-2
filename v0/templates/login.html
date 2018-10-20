@@ -12,8 +12,9 @@ Login
 <br>
 {% endfor %}
 	<form action = "/auth" method="POST">
-		<input type = "text" name = "username" placeholder="username" minlength="4" maxlength="10" required>
-		<input type = "password" name = "password" placeholder="password" minlength="4" maxlength="10" required> 
-		<input type = "submit" value="Submit"> 
+		<input type = "text" name = "username" placeholder="username" minlength="4" maxlength="10" required><br>
+		<input type = "password" name = "password" placeholder="password" minlength="4" maxlength="10" required><br> 
+		<input type = "submit" value="Login">
 	</form>
+	<a href="/signup">Sign Up</a><br>
 {% endblock %}

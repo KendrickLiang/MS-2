@@ -12,6 +12,10 @@ P #00: Da Art of Storytellin'
   <body>
 	{% block nav %}
 	{% endblock %}
+	{% set msgs = get_flashed_messages() %}
+	{% for msg in msgs%}
+		<b><p>{{msg}}</p></b>
+	{% endfor %}
 <h1>{% block title %} {% endblock %}</h1>
 {% block content %}{% endblock %}
 {% block footer%} &copy MS^2{% endblock %}
