@@ -1,0 +1,32 @@
+{% extends "base.html"%}
+{% block header %}
+New Entry
+{% endblock %}
+{% block title %}
+Create New Entry
+{% endblock %}
+{% block nav %}
+	<a href="/">Feed</a>
+	<a href="/search">Search</a>
+	<a href="/edit">Edit</a>
+	<a href="/newblog">New Blog</a>
+	<a href="/newentry">New Entry</a>
+	<form action = "/logout">
+		<input type = "submit" value="Logout"> 
+	</form>
+{% endblock %}
+{% block content %}
+	<h3>Blog:</h3>
+<form action="/createNewEntry" method="POST">
+	<select name="blogID">
+		{% for key in myBlogs %}
+			<option value="{{key}}">{{myBlogs[key]}}</option>
+		{% endfor%}
+	</select><br>
+	<h3>Title:</h3>
+	<input type="text" name="entryTitle" placeholder="Entry title"><br>
+	<h3>Body:</h3>
+	<textarea name="entryBody" cols="40" rows="5" placeholder="Entry body"></textarea><br>
+	<input type="submit" value="Post"><br>
+</form>
+{% endblock %}

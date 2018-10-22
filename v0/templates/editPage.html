@@ -1,9 +1,9 @@
 {% extends "base.html"%}
 {% block header %}
-Search
+Edit
 {% endblock %}
 {% block title %}
-Search
+Editing
 {% endblock %}
 {% block nav %}
 <a href="/">Feed</a>
@@ -13,18 +13,13 @@ Search
 	<a href="/newentry">New Entry</a>
 	<form action = "/logout">
 		<input type = "submit" value="Logout"> 
-	</form>
+</form>
 {% endblock %}
 {% block content %}
-<form action="/search">
-	<input type="text" name="searchQuery" placeholder="blog title">
-	<input type="submit" value="Submit">
-</form>
-{% if articles %}
-{% for key in articles%}
-	<h3>{{key}}</h3>{{articles[key]}}
-	<br>
-	<hr>
-{% endfor %}
-{% endif %}
+	<form action="/save" method="POST">
+		<input type="number" name="entryId" value={{idEntry}} readonly hidden>
+		<h3>Title</h3><input type="text" name="title" value="{{title}}"><br>
+		<h3>Content:</h3><textarea name="body" cols="40" rows="5">{{body}}</textarea><br>
+		<input type="submit" value="Save">
+	</form>
 {% endblock %}

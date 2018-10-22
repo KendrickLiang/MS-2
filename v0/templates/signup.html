@@ -1,9 +1,9 @@
 {% extends "base.html"%}
 {% block header %}
-Login
+Sign Up
 {% endblock %}
 {% block title %}
-Login
+Sign Up
 {% endblock %}
 {% block content %}
 {% set msgs = get_flashed_messages() %}
@@ -11,10 +11,11 @@ Login
 {{each}}
 <br>
 {% endfor %}
-	<form action = "/auth" method="POST">
+	<form action = "/createaccount" method="POST">
 		<input type = "text" name = "username" placeholder="username" minlength="4" maxlength="10" required><br>
 		<input type = "password" name = "password" placeholder="password" minlength="4" maxlength="10" required><br> 
-		<input type = "submit" value="Login">
+		<input type = "password" name = "passwordConfirmation" placeholder="retype password" minlength="4" maxlength="10" required> <br>
+		<input type = "submit" value="Create Account"> 
 	</form>
-	<a href="/signup">Sign Up</a><br>
+	<a href="/login">Sign In</a><br><br>
 {% endblock %}

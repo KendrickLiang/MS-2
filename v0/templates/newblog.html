@@ -1,12 +1,12 @@
 {% extends "base.html"%}
 {% block header %}
-Feed
+New Blog
 {% endblock %}
 {% block title %}
-Feed
+Create New Blog
 {% endblock %}
 {% block nav %}
-	<a href="/">Feed</a>
+<a href="/">Feed</a>
 	<a href="/search">Search</a>
 	<a href="/edit">Edit</a>
 	<a href="/newblog">New Blog</a>
@@ -16,9 +16,15 @@ Feed
 	</form>
 {% endblock %}
 {% block content %}
+<form action="/createNewBlog" method="POST">
+	<input type="text" name="blogName" placeholder="Blog title"><br>
+	<input type="submit" value="Create Blog">
+</form>
+{% if articles %}
 {% for key in articles%}
-<h3>{{key}}</h3>{{articles[key]}}
-<br>
-<hr>
+	<h3>{{key}}</h3>{{articles[key]}}
+	<br>
+	<hr>
 {% endfor %}
+{% endif %}
 {% endblock %}

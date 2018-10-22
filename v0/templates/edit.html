@@ -3,10 +3,25 @@
 Edit
 {% endblock %}
 {% block title %}
-Choose Blog to Edit
+Choose Blog Entry to Edit
+{% endblock %}
+{% block nav %}
+	<a href="/">Feed</a>
+	<a href="/search">Search</a>
+	<a href="/edit">Edit</a>
+	<a href="/newblog">New Blog</a>
+	<a href="/newblog">New Entry</a>
+	<form action = "/logout">
+		<input type = "submit" value="Logout"> 
+	</form>
 {% endblock %}
 {% block content %}
-
-
-
+	{% for key in entries%}
+		{% for k in entries[key].keys() %}
+			{% set title = k %}
+			{% set body = entries[key][k] %}
+			<a href={{"/edit?entryId=" + key}}><h3>{{title}}</h3></a>
+			<p>{{body}}</p>
+		{% endfor %}
+	{% endfor %}
 {% endblock %}
