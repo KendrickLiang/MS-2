@@ -9,10 +9,13 @@ Scenario Two:  Your team has been contracted to create a web log hosting site.
 4. This should appear in the terminal after running the python file.   
 
 ```* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)```
+
 ```* Restarting with stat```
+
 ```* Debugger is active!```
+
 ```* Debugger PIN: 248-748-502```
 
 5. Open a web broswer and navigate to the link http://127.0.0.1:5000/ only when the python file is running.
-6. Sign up or log in to enjoy our blogs!
+6. Sign up or log in to view or create blogs!
 
