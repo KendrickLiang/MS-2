@@ -54,3 +54,6 @@ Completed login and logout functionality. Implemeneted basic routing. Added feed
 
 stefanT, michelleT -- 2018-10-19 12:32 \n
 Completed login functionalities for the databases
+
+stefanT -- 2018-10-22 18:49 \n
+Added instructions to run the project in the README.md
