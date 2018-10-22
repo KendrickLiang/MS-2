@@ -19,7 +19,7 @@ fileNames = {
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
 	if "username" in session:
-		return render_template(fileNames["feed"], articles = getRandomBlogs()) #Still missing arguments that will be going in
+		return render_template(fileNames["feed"], articles = getRandomBlogs(), username = session["username"]) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
 @app.route("/createaccount", methods=["POST"])
@@ -41,7 +41,7 @@ def check_username_in_db (username):
 
 def save_user_signup (username, password):
 	print("Saving " + username + " with password " + password)
-
+# change to loginDatabase
 def checkUserInDatabase (username, password):
     return True
 	# Code by database role
@@ -88,10 +88,10 @@ def getBlog (query):
 @app.route("/search", methods = ["GET", "POST"])
 def search_page():
 	if ("searchQuery" in request.args):
-		return render_template(fileNames["search"], articles = getBlog(request.args["searchQuery"]))
+		return render_template(fileNames["search"], articles = getBlog(request.args["searchQuery"]), username = session["username"])
 	# print (request.args["queryString"])
 	if "username" in session:
-		return render_template(fileNames["search"])
+		return render_template(fileNames["search"], username = session["username"])
 	return render_template(fileNames["login"])
 
 def getMyEntries (userId):
@@ -102,21 +102,24 @@ def getMyEntries (userId):
 	}
 	return myEntry
 
+def getMyID (username):
+	return 121
+
 @app.route("/edit", methods = ["GET", "POST"])
 def edit_page():
-	if ("entryId" in request.args):
-		idEntryV = request.args["entryId"];
-		titleV = list(getMyEntries(121)[idEntryV].keys())[0]
-		bodyV = getMyEntries(121)[idEntryV][titleV]
-		return render_template(fileNames["editPage"], idEntry = idEntryV, title = titleV, body = bodyV)
 	if "username" in session:
-		return render_template(fileNames["edit"], entries = getMyEntries(121))
+		if ("entryId" in request.args):
+			idEntryV = request.args["entryId"];
+			titleV = list(getMyEntries(getMyID(session["username"]))[idEntryV].keys())[0]
+			bodyV = getMyEntries(getMyID(session["username"]))[idEntryV][titleV]
+			return render_template(fileNames["editPage"], idEntry = idEntryV, title = titleV, body = bodyV, username = session["username"])
+		return render_template(fileNames["edit"], entries = getMyEntries(getMyID(session["username"])), username = session["username"])
 	return render_template(fileNames["login"])
 
 @app.route("/newblog", methods = ["GET", "POST"])
 def new_blog_page ():
 	if "username" in session:
-		return render_template(fileNames["newBlog"])
+		return render_template(fileNames["newBlog"], username = session["username"])
 	return render_template(fileNames["login"])
 
 def saveEntry(entryId, newTitle, newBody):
@@ -127,14 +130,14 @@ def saveEntry(entryId, newTitle, newBody):
 @app.route("/save", methods = ["POST"])
 def save_entry ():
 	saveEntry(request.form['entryId'], request.form['title'], request.form['body'])
-	return redirect(url_for("edit_page"))
+	return redirect(url_for("edit_page"), username = session["username"])
 
 @app.route("/createNewBlog", methods = ["POST"])
 def create_new_blog ():
 	if "username" in session:
 		if (checkIfBlogNameInUse(request.form["blogName"])):
 			flash("Blog name already in use")
-			return redirect(url_for("new_blog_page"))
+			return redirect(url_for("new_blog_page"), username = session["username"])
 		else:
 			flash("Blog created")
 			createNewBlog(request.form["blogName"])
@@ -147,7 +150,7 @@ def checkIfBlogNameInUse (name):
 @app.route("/newentry", methods = ["GET", "POST"])
 def new_entry_page ():
 	if "username" in session:
-		return render_template(fileNames["newEntry"], myBlogs = get_my_blog_titles(121))
+		return render_template(fileNames["newEntry"], myBlogs = get_my_blog_titles(getMyID(session["username"])), username = session["username"])
 	return render_template(fileNames["login"])
 
 @app.route("/createNewEntry", methods=["POST"])
