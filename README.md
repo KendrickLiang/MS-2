@@ -15,5 +15,5 @@ Scenario Two:  Your team has been contracted to create a web log hosting site.
 ```
 
 5. Open a web broswer and navigate to the link http://127.0.0.1:5000/ only when the python file is running.
-6. Sign up or log in to view or create blogs!
+6. Sign up or log in to view, create blogs and add entries!
 
