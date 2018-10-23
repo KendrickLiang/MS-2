@@ -37,13 +37,22 @@ c.execute(command2)
 
 def hardCode():
     form_response = ('a_username', 'a_password', "1")
-    c.execute( users(), form_response )
+    c.execute( usersDB(), form_response )
     form_response = ('1', '1', 'Cats', "1")
-    c.execute( blogs(), form_response )
+    c.execute( blogsDB(), form_response )
     form_response = ('1', '1', '1', 'Cats', 'I like them.')
-    c.execute( "INSERT INTO entries(user_id, blog_id, entry_id, entry_title, entry_content) VALUES( ?, ?, ?, ?, ?)", form_response )
+    c.execute( entriesDB(), form_response )
     print ("!!finished inserting set values!!")
 
+
+def usersDB():
+    return "INSERT INTO users(username, password, blog_id) VALUES( ?, ?, ?)"
+
+def blogsDB():
+    return "INSERT INTO blogs (user_id,blog_id,blog_title, entry_id) VALUES( ?, ?, ?, ?)"
+
+def entriesDB():
+    return "INSERT INTO entries(user_id, blog_id, entry_id, entry_title, entry_content) VALUES( ?, ?, ?, ?, ?)"
 
 def addUserToDatabase(username,password):
     search = "SELECT username FROM users"
@@ -54,8 +63,10 @@ def addUserToDatabase(username,password):
         if (user[0] == username):
             print ("a user already exists")
             return False;
-    form_response1 = ( username, password, "");
-    c.execute( "INSERT INTO users(username, password, blog_id) VALUES( ?, ? , ?)", form_response1 )
+    #form_response1 = ( username, password, "");
+    form_responsea = ('a_username', 'a_password', "1")
+    c.execute( usersDB() , form_responsea )
+    print( "shen")
 
 def loginDatabase(username,password):
     search = "SELECT username, password FROM users"
@@ -66,19 +77,13 @@ def loginDatabase(username,password):
             print ("login successful")
     print(users)
 
-def createNewBlog( userID, title ):
-    form_response1 = ( username, password, "");
-    c.execute( blogs(), form_response1 )
+# def createNewBlog( userID, title ):
+#     form_response1 = ( username, password, "");
+#     c.execute( blogs(), form_response1 )
 
 
 
-def users():
-    return "INSERT INTO users(username, password, blog_id) VALUES( ?, ?, ?)"
 
-def blogs():
-    return "INSERT INTO blogs (user_id,blog_id,blog_title, entry_id) VALUES( ?, ?, ?, ?)"
-
-def
 # def createUser (username,password):
 #     search = "SELECT username FROM users"
 #     c.execute(search)
@@ -88,8 +93,8 @@ def
 #             print ("user already exists")
 hardCode()
 addUserToDatabase("sam", "notsam")
-loginDatabase("sam","notsam")
-addUserToDatabase("sam", "notsam")
+# loginDatabase("sam","notsam")
+# addUserToDatabase("sam", "notsam")
 
 #done #  check_username_in_db (username) returns bool
 # done # save_user_signup (usernbame, password) return void
