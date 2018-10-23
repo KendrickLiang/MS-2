@@ -129,16 +129,20 @@ def saveEntry(entryId, newTitle, newBody):
 
 @app.route("/save", methods = ["POST"])
 def save_entry ():
+	flash("Edit saved")
 	saveEntry(request.form['entryId'], request.form['title'], request.form['body'])
-	return redirect(url_for("edit_page"), username = session["username"])
+	return redirect(url_for("edit_page"))
 
 @app.route("/createNewBlog", methods = ["POST"])
 def create_new_blog ():
+	print("hello")
 	if "username" in session:
 		if (checkIfBlogNameInUse(request.form["blogName"])):
+			print("hello2")
 			flash("Blog name already in use")
-			return redirect(url_for("new_blog_page"), username = session["username"])
+			return redirect(url_for("new_blog_page"))
 		else:
+			print("hello3")
 			flash("Blog created")
 			createNewBlog(request.form["blogName"])
 			return redirect(url_for("input_field_page"))
