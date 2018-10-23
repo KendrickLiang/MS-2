@@ -72,3 +72,6 @@ Added instructions to run the project in the README.md
 
 mingM, nahianS -- -- 2018-10-19 12:32 \n
 Worked on security of application by preventing access to users not logged in through flask routing.
+
+stefanT -- 2018-10-23 12:28 \n
+Robustified the README.md
