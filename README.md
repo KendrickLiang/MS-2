@@ -13,10 +13,10 @@ $ virtualenv venv
 ```
 4. Activate the virtual environment by typing ```$ . venv/bin/activate``` in the terminal.
 5. Once you have your virtual environment activated, type ```$ sudo pip install wheel``` and ```$ sudo pip install Flask``` to install Flask.
-1. Clone this repo. To clone this repo, open a terminal session and navigate to the folder you want this repo to located in. Then clone with SSH by typing ```$ git clone git@github.com:tangym27/MS-2.git``` in the terminal. 
-2. Navigate to the v0 directory by typing ```$ cd MS-2/v0/``` in the terminal. 
-3. Run the python file by typing ```$ python app.py``` in the terminal. 
-4. This should appear in the terminal after running the python file.   
+6. Clone this repo. To clone this repo, open a terminal session and navigate to the folder you want this repo to located in. Then clone with SSH by typing ```$ git clone git@github.com:tangym27/MS-2.git``` in the terminal. 
+7. Navigate to the v0 directory by typing ```$ cd MS-2/v0/``` in the terminal. 
+8. Run the python file by typing ```$ python app.py``` in the terminal. 
+9. This should appear in the terminal after running the python file.   
 ```
 * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 * Restarting with stat
@@ -24,6 +24,6 @@ $ virtualenv venv
 * Debugger PIN: 248-748-502
 ```
 
-5. Open a web broswer and navigate to the link http://127.0.0.1:5000/ only when the python file is running.
-6. Sign up or log in to view, create blogs and add entries!
+10. Open a web broswer and navigate to the link http://127.0.0.1:5000/ only when the python file is running.
+11. Sign up or log in to view, create blogs and add entries!
 
