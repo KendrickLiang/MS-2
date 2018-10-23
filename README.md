@@ -4,7 +4,7 @@ Scenario Two:  Your team has been contracted to create a web log hosting site.
 
 ## Instructions to Run:
 1. Make sure you have sudo access to your local and computer and that it has python3 installed.
-2. Install virtualenv if you don't want the processes interfere with your system by typing ```$ git sudo pip install virtualenv``` in the terminal.
+2. Install virtualenv if you don't want the processes interfere with your system by typing ```$ sudo pip install virtualenv``` in the terminal.
 3. Create your own environment by typing (myproject and venv are placeholders for names of your choosing):
 ```
 $ mkdir myproject
