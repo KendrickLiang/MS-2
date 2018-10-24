@@ -82,3 +82,5 @@ Robustified the README.md
 michelleT -- 2018-10-23 12:37 
 Used the database to generate a feed by generating random blogs and entries (using nested dictionaries)
  
+mingM, nahianS -- 2018-10-24 12:00
+Worked on feature that allows individual blogs to be viewed on separate pages.
