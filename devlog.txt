@@ -19,13 +19,13 @@ Scenario Two: Your team has been contracted to create a web log hosting site.
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-matthewM, sajedN, stefanT, michelleT -- 2018-10-15 10:47 \n
+matthewM, sajedN, stefanT, michelleT -- 2018-10-15 10:47 
 Finished design.pdf
 
-matthewM, sajedN, stefanT, michelleT -- 2018-10-16 10:38 \n
+matthewM, sajedN, stefanT, michelleT -- 2018-10-16 10:38 
 With advice from Team BugBlog and Team Pineapple, we were able to revise our design doc. We modified our database schema so that blog_id would be the primary key instead of blog_title. This is an key feature because blog_id is matched to the user in the user table. In addition to that, we also added another table called ‘entries.’ Previously, we contained all of our entries in a single column, which will make our database cluttered and hard to manage. By adding another table, and connecting it to the blogs table by the corresponding blog_id, we are able to make our code more perspicuous. 
 
-matthewM, stefanT, michelleT -- 2018-10-16 10:38 \n
+matthewM, stefanT, michelleT -- 2018-10-16 10:38 
 We absolutely loved this reading because it contained enough exaggerated situations that kept us entertained but also sounded vaguely familiar. One of our favorite lines is “Doing this all day leaves you in a state of mild aphasia as you look at people’s faces while they’re speaking and you don’t know they’ve finished because there’s no semicolon” because it has remnants of complete desperation that almost everyone who has ever worked on a coding project experiences.  The author does a brilliant job of summarizing the (occasional) pain of working in groups in unique situations that, after a more careful reading of it, turn out to be more relatable than we are ever willing to admit. 
 
 Actions/Protocols/Procedures To Make Our Project More Awesome:
@@ -34,51 +34,51 @@ Actions/Protocols/Procedures To Make Our Project More Awesome:
 2. Make snippets of code more clear with suitable names and annotate with helpful comments that detail what certain parts do 
 3. Comments/ Perspecuity/ Clarity/ OPTIMIZATION!!!!/ The internet is a dangerous place, make good enough code and leave.
 
-matthewM -- 2018-10-17 12:35 \n
+matthewM -- 2018-10-17 12:35 
 Added template files
 
-sajedN -- 2018-10-17 12:35 \n
+sajedN -- 2018-10-17 12:35 
 Added basic routing of login / logout functionality
 
-michelleT -- 2018-10-17 12:35 \n
+michelleT -- 2018-10-17 12:35 
 Worked on database creation / modification code
 
-stefanT -- 2018-10-17 12:35 \n
+stefanT -- 2018-10-17 12:35 
 Worked on formatting file structure within project
 
-stefanT, michelleT -- 2018-10-18 12:31 \n
+stefanT, michelleT -- 2018-10-18 12:31
 Worked on database schema, changed blog_id to TEXT to allow for multiple blogs
 
-mingM, nahianS -- 2018-10-18 12:32 \n
+mingM, nahianS -- 2018-10-18 12:32 
 Completed login and logout functionality. Implemeneted basic routing. Added feed displaying capabilities.
 
-mingM, nahianS -- 2018-10-19 06:40 \n
+mingM, nahianS -- 2018-10-19 06:40 
 Worked on search page and templating inheritance for jinja.
 
-nahianS -- 2018-10-19 06:30 \n
+nahianS -- 2018-10-19 06:30 
 Completed search page. Started work on edit page, create blog page, and create new entry page. 
 
-nahianS -- 2018-10-19 12:30 \n
+nahianS -- 2018-10-19 12:30 
 Completed edit, create new blog and create new entry page
 
-mingM -- 2018-10-19 07:33 \n
+mingM -- 2018-10-19 07:33 
 Restructured jinja
  
-stefanT, michelleT -- 2018-10-19 12:32 \n
+stefanT, michelleT -- 2018-10-19 12:32 
 Completed login functionalities for the databases
 
-stefanT -- 2018-10-22 18:49 \n
+stefanT -- 2018-10-22 18:49 
 Added instructions to run the project in the README.md
 
-mingM, nahianS -- -- 2018-10-19 12:32 \n
+mingM, nahianS -- -- 2018-10-19 12:32
 Worked on security of application by preventing access to users not logged in through flask routing.
 
-michelleT -- 2018-10-22 12:31 \n
+michelleT -- 2018-10-22 12:31 
 Connected databases with each other through the matching of userID, simplified code 
 
-stefanT -- 2018-10-23 12:28 \n
+stefanT -- 2018-10-23 12:28 
 Robustified the README.md
 
-michelleT -- 2018-10-23 12:37 \n
+michelleT -- 2018-10-23 12:37 
 Used the database to generate a feed by generating random blogs and entries (using nested dictionaries)
  
