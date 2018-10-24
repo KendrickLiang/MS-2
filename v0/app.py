@@ -19,7 +19,21 @@ fileNames = {
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
 	if "username" in session:
-		return render_template(fileNames["feed"], articles = getRandomBlogs(), username = session["username"]) #Still missing arguments that will be going in
+		articles = getRandomBlogs()
+		articleKeys = list(articles.keys())
+		articleTitles = []
+		articleBody = [];
+		for key in articles:
+			#print (key)
+			for title in articles[key]:
+				articleTitles.append(title)
+				articleBody.append(articles[key][title])
+		#print (articleTitles)
+		articleBodyShortened = [];
+		for body in articleBody:
+			print(body)
+			articleBodyShortened.append((body[:15] + '..') if len(body) > 15 else body) 
+		return render_template(fileNames["feed"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"]) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
 @app.route("/createaccount", methods=["POST"])
@@ -48,11 +62,9 @@ def checkUserInDatabase (username, password):
 
 def getRandomBlogs ():
     return {
-        "Cool Title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
-        "Cool Title 2": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
-        "Cool Title 3": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
-        "Cool Title 4": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus.",
-        "Cool Title 5": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."
+        	"123" : {"Why cats are cool" : "Cats are the coolest animal"},
+		"235" : {"How to become rich" : "Buy money"},
+		"344" : {"Grapes are nasty" : "Grapes taste horrible!"}
         }
 
 @app.route("/login", methods = ["POST", "GET"])

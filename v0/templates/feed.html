@@ -17,9 +17,8 @@ Feed
 	</form>
 {% endblock %}
 {% block content %}
-{% for key in articles%}
-<h3>{{key}}</h3>{{articles[key]}}
-<br>
-<hr>
+{% for i in range(0, keys|length) %}
+	<a href="/viewPage?entryId={{keys[i]}}"><h3>{{titles[i]}}</h3></a>
+	<p>{{bodies[i]}}</p>
 {% endfor %}
 {% endblock %}
