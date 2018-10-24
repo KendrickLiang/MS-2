@@ -38,23 +38,25 @@ c.execute(command2)
 def hardCode():
     form_response = ('a_username', 'a_password', "1")
     c.execute( usersDB(), form_response )
+    form_response = ('B_username', 'B_password', "2")
+    c.execute( usersDB(), form_response )
     form_response = ('1', '1', 'Cats', "1")
     c.execute( blogsDB(), form_response )
-    form_response = ('0', '1', '1', 'Cats', 'I like them.')
+    form_response = ('0', '1', '1', 'Cats', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '2', 'Dogs', 'I like them.')
+    form_response = ('1', '1', '2', 'Dogs', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '3', 'Birds', 'I like them.')
+    form_response = ('1', '1', '3', 'Birds', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '4', 'Fish', 'I like them.')
+    form_response = ('1', '1', '4', 'Fish', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '5', 'Ants', 'I like them.')
+    form_response = ('1', '1', '5', 'Ants', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '6', 'Ducks', 'I like them.')
+    form_response = ('1', '1', '6', 'Ducks', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '7', 'Geese', 'I like them.')
+    form_response = ('1', '1', '7', 'Geese', 'Yay.')
     c.execute( entriesDB(), form_response )
-    form_response = ('1', '1', '8', 'Rats', 'I like them.')
+    form_response = ('1', '1', '8', 'Rats', 'Yay.')
     c.execute( entriesDB(), form_response )
     print ("!!finished inserting set values!!")
 
@@ -96,24 +98,49 @@ def loginDatabase(username,password):
 
 #given userid, return five entries
 def getRandomEntries(userID):
-    search = "SELECT user_id, entry_title, entry_content FROM entries WHERE entries.user_id != " + str(userID)
+    search = "SELECT entry_id, entry_title, entry_content FROM entries WHERE entries.user_id != " + str(userID)
     c.execute(search)
     entries = c.fetchall()
-    dict1 = {}
     dict = {}
     counter = 0;
     for entry in entries:
         if counter > 4:
             break;
-        dict1[str(entry[0])][str(entry[1])] = str(entry[2])
-        counter += 1
-
-    print dict1
+        print (entry[0])
+        dict[entry[0]]= {}
+        dict[entry[0]][str(entry[1])] = str(entry[2])
+        #counter += 1
+    print dict
     print ("shmur")
 
-
-
 getRandomEntries(0)
+
+def returnEntry(entryID):
+    print("testing return entry")
+    search = "SELECT username, entry_title, entry_content FROM users, entries WHERE entries.entry_id == " + str(entryID) + " AND users.user_id == entries.user_id"
+    c.execute(search)
+    entry = c.fetchall()
+    print ("THIS IS THE ENTRY")
+    # will give back user, title of entry, and content of entry
+    print entry
+
+returnEntry(3)
+
+def getMyEntries(userID):
+    search = "SELECT entry_title, entry_content FROM entries WHERE entries.user_id == " + str(userID)
+    c.execute(search)
+    entries = c.fetchall()
+    dict = {}
+    for entry in entries:
+        dict[str(entry[0])] = str(entry[1])
+    print dict
+    print ("testing getmyentries")
+
+getMyEntries(1)
+
+
+
+
 #     form_response1 = ( username, password, "");
 #     c.execute( blogs(), form_response1 )
 
@@ -132,7 +159,7 @@ loginDatabase("sam","notsam")
 
 #done #  check_username_in_db (username) returns bool
 #done # save_user_signup (usernbame, password) return void
-# getRandomEntries () returns dictionary of random blogs entries where key is title of entry and value is cotent of entry_id
+#done # getRandomEntries () returns dictionary of random blogs entries where key is title of entry and value is cotent of entry_id
 # def getBlog (query) returns dictionary (same as getRandomBlogs) where title contains the query
 # getMyEntries (userID) returns dictionary dictionary (look at app.py to see what it returns)
 # saveEntry (entryID, newTitle, newBody) modifies the entry with the new title and new newBody
@@ -140,7 +167,6 @@ loginDatabase("sam","notsam")
 # def get_my_blog_titles take look at app.def foo():
 # createNEwBlog (name)
 # getMyId(username)
-# i love this keyboard it is so fun to type on. It feels soooo good why does this keyboard feel so
 
  #    doc = "The  property."
  #    def fget(self):
