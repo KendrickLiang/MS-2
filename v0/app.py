@@ -12,9 +12,19 @@ fileNames = {
 	"editPage": "editPage.html",
 	"signUp": "signup.html",
 	"newBlog": "newblog.html",
-	"newEntry": "newentry.html"
+	"newEntry": "newentry.html",
+	"viewPage": "viewPage.html"
 }
 
+def shortenArticleBody (numWords, body):
+	count = 0
+	newBody = ""
+	bodyList = body.split()	
+	while (count < numWords):
+		newBody += bodyList[count] + " "
+		count+=1
+	return newBody + "..."
+	
 
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
@@ -31,8 +41,7 @@ def input_field_page():
 		#print (articleTitles)
 		articleBodyShortened = [];
 		for body in articleBody:
-			print(body)
-			articleBodyShortened.append((body[:15] + '..') if len(body) > 15 else body) 
+			articleBodyShortened.append(shortenArticleBody(10, body)) 
 		return render_template(fileNames["feed"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"]) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
@@ -62,10 +71,18 @@ def checkUserInDatabase (username, password):
 
 def getRandomBlogs ():
     return {
-        	"123" : {"Why cats are cool" : "Cats are the coolest animal"},
-		"235" : {"How to become rich" : "Buy money"},
-		"344" : {"Grapes are nasty" : "Grapes taste horrible!"}
+        	"1" : {"Awesome Post1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
+		"2" : {"Awesome Post2" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
+		"3" : {"Awesome Post3" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
         }
+
+def getEntryByID(id):
+	if (id == "1"):
+		return {"Awesome Post1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
+	if (id == "2"):
+		return {"Awesome Post2" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
+	else:
+		return {"Awesome Post3" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
 
 @app.route("/login", methods = ["POST", "GET"])
 def redirect_login ():
@@ -128,6 +145,16 @@ def edit_page():
 		return render_template(fileNames["edit"], entries = getMyEntries(getMyID(session["username"])), username = session["username"])
 	return render_template(fileNames["login"])
 
+@app.route ("/viewPage", methods = ["GET", "POST"])
+def view_page():
+	if "username" in session:
+		print(request.args)
+		if "entryId" in request.args:
+			entry = getEntryByID(request.args["entryId"])
+			return render_template(fileNames["viewPage"], title = list(entry.keys())[0], body = list(entry.values())[0], username = session["username"])
+		else:
+			return redirect(url_for("input_field_page"))
+	return render_template(fileNames["login"])
 @app.route("/newblog", methods = ["GET", "POST"])
 def new_blog_page ():
 	if "username" in session:

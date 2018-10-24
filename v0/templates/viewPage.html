@@ -3,7 +3,6 @@
 Edit
 {% endblock %}
 {% block title %}
-Editing
 {% endblock %}
 {% block nav %}
 <a href="/">Feed</a>
@@ -17,6 +16,6 @@ Editing
 </form>
 {% endblock %}
 {% block content %}
-		<h3>Title</h3>{{title}}<br>
-		<h3>Content:</h3>{{body}}<br>
+		<h2>{{title}}</h2>
+		<p>{{body}}</p>
 {% endblock %}
