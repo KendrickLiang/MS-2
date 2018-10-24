@@ -73,5 +73,12 @@ Added instructions to run the project in the README.md
 mingM, nahianS -- -- 2018-10-19 12:32 \n
 Worked on security of application by preventing access to users not logged in through flask routing.
 
+michelleT -- 2018-10-22 12:31 \n
+Connected databases with each other through the matching of userID, simplified code 
+
 stefanT -- 2018-10-23 12:28 \n
 Robustified the README.md
+
+michelleT -- 2018-10-23 12:37 \n
+Used the database to generate a feed by generating random blogs and entries (using nested dictionaries)
+ 
