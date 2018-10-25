@@ -138,13 +138,32 @@ def getMyEntries(userID):
 
 getMyEntries(1)
 
+def saveEntry(entryID, newTitle, newBody):
+    print(newTitle)
+    print(str(newTitle))
+    search = "UPDATE entries SET entry_title =" + ''' newTitle''' + "WHERE entry_id == " + str(entryID)
+    print (repr(search))
+    c.execute(search)
+    print ("save entry")
 
+#try this out: cursor.execute ( ''' update books set price = ? where id = ?''', (newPrice, book_id)
+saveEntry(1, 'newDog', "newYay")
 
-
+you a keyword, i will return a title and a content and th eid.
 #     form_response1 = ( username, password, "");
 #     c.execute( blogs(), form_response1 )
-
-
+#
+# in velocity:
+# if it is above x axis, moving to the right
+# if it is below the x axis, moving to the leftself.
+# when determining distance,
+# def getBlog (query) returns dictionary (same as getRandomBlogs) where title contains the query
+# getMyEntries (userID) returns dictionary dictionary (look at app.py to see what it returns)
+# saveEntry (entryID, newTitle, newBody) modifies the entry with the new title and new newBody
+# checkIFBlogNameInUse (name)
+# def get_my_blog_titles take look at app.def foo():
+# createNEwBlog (name)
+# getMyId(username)
 
 
 # def createUser (username,password):
@@ -160,13 +179,7 @@ loginDatabase("sam","notsam")
 #done #  check_username_in_db (username) returns bool
 #done # save_user_signup (usernbame, password) return void
 #done # getRandomEntries () returns dictionary of random blogs entries where key is title of entry and value is cotent of entry_id
-# def getBlog (query) returns dictionary (same as getRandomBlogs) where title contains the query
-# getMyEntries (userID) returns dictionary dictionary (look at app.py to see what it returns)
-# saveEntry (entryID, newTitle, newBody) modifies the entry with the new title and new newBody
-# checkIFBlogNameInUse (name)
-# def get_my_blog_titles take look at app.def foo():
-# createNEwBlog (name)
-# getMyId(username)
+
 
  #    doc = "The  property."
  #    def fget(self):
