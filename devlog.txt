@@ -84,3 +84,7 @@ Used the database to generate a feed by generating random blogs and entries (usi
  
 mingM, nahianS -- 2018-10-24 12:00
 Worked on feature that allows individual blogs to be viewed on separate pages.
+
+michelleT -- 2018-10-24 12:21
+Worked on 'entry' features so that users can retrieve their entries/other people's entries given a variety of criteria (ie userID, entryID) 
+ 
