@@ -48,25 +48,25 @@ def hardCode():
     form_response = (0, 1, 1, 'Cats', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '2', 'Dogs', 'Yay.')
+    form_response = (1, 1, 2, 'Dogs', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '3', 'Birds', 'Yay.')
+    form_response = (1, 1, 3, 'Birds', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '4', 'Fish', 'Yay.')
+    form_response = (1, 1, 4, 'Fish', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '5', 'Ants', 'Yay.')
+    form_response = (1, 1, 5, 'Ants', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '6', 'Ducks', 'Yay.')
+    form_response = (1, 1, 6, 'Ducks', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '7', 'Geese', 'Yay.')
+    form_response = (1, 1, 7, 'Geese', 'Yay.')
     c.execute( entriesDB(), form_response )
 
-    form_response = ('1', '1', '8', 'Rats', 'Yay.')
+    form_response = (1, 1, 8, 'Rats', 'Yay.')
     c.execute( entriesDB(), form_response )
     print ("!!finished inserting set values!!")
 
@@ -158,13 +158,10 @@ getMyEntries(1)
 #     #print ("save entry")
 
 def updateBlog(idnum, title, body):
-    try:
-        command = """UPDATE entries
-        SET entry_title = ? , body = ?
-        WHERE entry_id = ?""" %(title, body, idnum)
-        c.execute(command)
-    except:
-        print "\nBIG WRONG wrong id\n"
+
+    command = "UPDATE entries SET entry_title = \"{}\", entry_content = \"{}\" WHERE entry_id = {}".format(title, body, idnum)
+    c.execute(command)
+
 #try this out: cursor.execute ( ''' update books set price = ? where id = ?''', (newPrice, book_id)
 updateBlog(1, "newdog", "newYay")
 

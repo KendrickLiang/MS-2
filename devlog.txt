@@ -91,3 +91,9 @@ Worked on 'entry' features so that users can retrieve their entries/other people
 mingM, nahianS -- 2018-10-25 12:28
 Completed feature that allows individual blogs to be viewed individually within the search page. 
 Also fixed bug where non-logged-in users can crash pages if not logged in.
+
+michelleT -- 2018-10-25 12:33
+broke updateBlog (a good break because before it was working for the wrong reasons)
+
+michelleT -- 2018-10-26 2:55
+I FIXED UPDATEBLOG. 
