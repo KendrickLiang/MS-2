@@ -1,4 +1,4 @@
-# MS-2: 
+# MS^2: 
 # Matthew Ming, Sajed Nahian, Stefan Tan, Michelle Tang
 Scenario Two:  Your team has been contracted to create a web log hosting site.
 
