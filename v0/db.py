@@ -36,26 +36,36 @@ c.execute(command2)
 
 
 def hardCode():
-    form_response = ('a_username', 'a_password', "1")
+    form_response = ("a_username", "a_password", "1")
     c.execute( usersDB(), form_response )
-    form_response = ('B_username', 'B_password', "2")
+
+    form_response = ("B_username", "B_password", "2")
     c.execute( usersDB(), form_response )
-    form_response = ('1', '1', 'Cats', "1")
+
+    form_response = (1, 1, 'Cats', 1)
     c.execute( blogsDB(), form_response )
-    form_response = ('0', '1', '1', 'Cats', 'Yay.')
+
+    form_response = (0, 1, 1, 'Cats', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '2', 'Dogs', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '3', 'Birds', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '4', 'Fish', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '5', 'Ants', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '6', 'Ducks', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '7', 'Geese', 'Yay.')
     c.execute( entriesDB(), form_response )
+
     form_response = ('1', '1', '8', 'Rats', 'Yay.')
     c.execute( entriesDB(), form_response )
     print ("!!finished inserting set values!!")
@@ -138,18 +148,27 @@ def getMyEntries(userID):
 
 getMyEntries(1)
 
-def saveEntry(entryID, newTitle, newBody):
-    print(newTitle)
-    print(str(newTitle))
-    search = "UPDATE entries SET entry_title =" + ''' newTitle''' + "WHERE entry_id == " + str(entryID)
-    print (repr(search))
-    c.execute(search)
-    print ("save entry")
+# def saveEntry(entryID, newTitle, newBody):
+#     print(newTitle)
+#     print(str(newTitle))
+#
+#     search = """UPDATE entries SET entry_title = %s, entry_content = %s WHERE entry_id = %d""" %(newTitle, newBody , entryID)
+#     c.execute(search)
+#     print("fksjdlfkajsdn")
+#     #print ("save entry")
 
+def updateBlog(idnum, title, body):
+    try:
+        command = """UPDATE entries
+        SET entry_title = ? , body = ?
+        WHERE entry_id = ?""" %(title, body, idnum)
+        c.execute(command)
+    except:
+        print "\nBIG WRONG wrong id\n"
 #try this out: cursor.execute ( ''' update books set price = ? where id = ?''', (newPrice, book_id)
-saveEntry(1, 'newDog', "newYay")
+updateBlog(1, "newdog", "newYay")
 
-you a keyword, i will return a title and a content and th eid.
+#you a keyword, i will return a title and a content and th eid.
 #     form_response1 = ( username, password, "");
 #     c.execute( blogs(), form_response1 )
 #
