@@ -314,15 +314,22 @@ def getBlogs(userID, query):
     d={}
     user_counter = user_count
     blogs = []
+    print("the query:")
+    print(query)
+    print("the count:")
+    print(user_count)
     while (user_counter > 0):
         if (user_counter != userID):
             blogs += get_my_blog_titles(user_counter)
         user_counter -= 1
+    print("the blogs")
+    print(blogs)
     for blog in blogs:
         if (blog.find(query) != -1):
             d[blogID(blog)] = blog
     print("finished getBlogs")
-    print(blogs)
+    print("the dictionary")
+    print(d)
     db.commit()
     db.close()
     return d
@@ -355,17 +362,17 @@ def getMyId(username):
 addUserToDatabase('coolio1', 'password')
 addUserToDatabase('coolio2', 'password')
 addUserToDatabase('coolio3', 'password')
-
+print(user_count)
 addBlogToDatabase(1, 'blog_title')
-addBlogToDatabase(1, 'blog_title')
+addBlogToDatabase(1, 'blogs_title')
+print(getBlogs(0, 'blog'))
 
-addEntryToDatabase(1, 0, 'entry_title1', '1entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(1, 0, 'entry_title2', '2entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 0, 'entry_title3', '3entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 0, 'entry_title4', '4entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 1, 'entry_title5', '5entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 1, 'entry_title6', '6entry_contententry_entry_contententry_contententry_content')
-print(getBlogs(0, 'entry'))
+# addEntryToDatabase(1, 0, 'entry_title1', '1entry_contententry_entry_contententry_contententry_content')
+# addEntryToDatabase(1, 0, 'entry_title2', '2entry_contententry_entry_contententry_contententry_content')
+# addEntryToDatabase(2, 0, 'entry_title3', '3entry_contententry_entry_contententry_contententry_content')
+# addEntryToDatabase(2, 0, 'entry_title4', '4entry_contententry_entry_contententry_contententry_content')
+# addEntryToDatabase(2, 1, 'entry_title5', '5entry_contententry_entry_contententry_contententry_content')
+# addEntryToDatabase(2, 1, 'entry_title6', '6entry_contententry_entry_contententry_contententry_content')
 
 db.commit()
 db.close()

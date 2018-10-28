@@ -127,20 +127,19 @@ def search_page():
 	if "username" not in session:
 		return render_template(fileNames["login"])
 	if ("searchQuery" in request.args):
-		articles = getBlog(request.args["searchQuery"])
+		articles = getBlogs(getMyId(session["username"]), "blogs") #request.args["searchQuery"])
+		print(articles)
 		articleKeys = list(articles.keys())
 		articleTitles = []
-		articleBody = [];
+		#articleBody = [];
 		for key in articles:
 			#print (key)
 			for title in articles[key]:
 				articleTitles.append(title)
-				articleBody.append(articles[key][title])
+			#	articleBody.append(articles[key][title])
 		#print (articleTitles)
-		articleBodyShortened = [];
-		for body in articleBody:
-			articleBodyShortened.append(shortenArticleBody(10, body))
-		return render_template(fileNames["search"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"])
+	#articleBodyShortened.append(shortenArticleBody(10, body))
+		return render_template(fileNames["search"], keys = articleKeys, titles = articleTitles, username = session["username"])#bodies = articleBodyShortened,
 	# print (request.args["queryString"])
 	return render_template(fileNames["search"], username = session["username"])
 
