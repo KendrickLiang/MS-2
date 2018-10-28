@@ -137,6 +137,8 @@ def addBlogToDatabase(userID, blog_title):
     print ("finished addBlogToDatabase")
     db.commit()
     db.close()
+    print(str(userID) + " " + blog_title)
+    print("ADDEDDDDDDDDDDDDDDDDDDDDDDDDDD")
     return True
 
 
@@ -352,20 +354,5 @@ def getMyId(username):
     db.close()
     return userID[0][0]
 
-addUserToDatabase('coolio1', 'password')
-addUserToDatabase('coolio2', 'password')
-addUserToDatabase('coolio3', 'password')
-
-addBlogToDatabase(1, 'blog_title')
-addBlogToDatabase(1, 'blog_title')
-
-addEntryToDatabase(1, 0, 'entry_title1', '1entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(1, 0, 'entry_title2', '2entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 0, 'entry_title3', '3entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 0, 'entry_title4', '4entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 1, 'entry_title5', '5entry_contententry_entry_contententry_contententry_content')
-addEntryToDatabase(2, 1, 'entry_title6', '6entry_contententry_entry_contententry_contententry_content')
-print(getBlogs(0, 'entry'))
-
-db.commit()
-db.close()
+if __name__ == "__main__":
+    print(getBlogs(1, "bread"))

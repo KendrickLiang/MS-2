@@ -60,7 +60,7 @@ def create_account ():
 			return redirect(url_for("sign_up_page"))
 		else:
 			flash("Account created successfully")
-			session['username']=request.form['username']
+			# session['username']=request.form['username']
 			return redirect(url_for("input_field_page"))
 	else:
 		flash("Password do not match")
@@ -127,6 +127,7 @@ def search_page():
 	if "username" not in session:
 		return render_template(fileNames["login"])
 	if ("searchQuery" in request.args):
+		print(";;;;;;;;;;;;;;;" + str(getBlogs(getMyId(session["username"]), request.args["searchQuery"])))
 		articles = getBlog(request.args["searchQuery"])
 		articleKeys = list(articles.keys())
 		articleTitles = []
@@ -163,12 +164,16 @@ def getMyID (username):
 # otherwise redirects to login page
 def edit_page():
 	if "username" in session:
+		print("&&&&&&&&&" + str(getMyUserEntries(getMyId(session["username"]))))
 		if ("entryId" in request.args):
+			print("^^^^^^^^^^^^^^" + str(returnEntry(int(request.args["entryId"]))))
 			idEntryV = request.args["entryId"];
-			titleV = list(getMyEntries(getMyID(session["username"]))[idEntryV].keys())[0]
-			bodyV = getMyEntries(getMyID(session["username"]))[idEntryV][titleV]
+			entryT = list(returnEntry(int(request.args["entryId"])).keys())
+			titleV = entryT[0]
+			entryB = list(returnEntry(int(request.args["entryId"])).values())
+			bodyV = entryB[0]
 			return render_template(fileNames["editPage"], idEntry = idEntryV, title = titleV, body = bodyV, username = session["username"])
-		return render_template(fileNames["edit"], entries = getMyEntries(getMyID(session["username"])), username = session["username"])
+		return render_template(fileNames["edit"], entries = getMyUserEntries(getMyId(session["username"])), username = session["username"])
 	return render_template(fileNames["login"])
 
 @app.route ("/viewPage", methods = ["GET", "POST"])
@@ -177,7 +182,7 @@ def view_page():
 	if "username" in session:
 		print(request.args)
 		if "entryId" in request.args:
-			entry = getEntryByID(request.args["entryId"])
+			entry = returnEntry(int(request.args["entryId"]))
 			return render_template(fileNames["viewPage"], title = list(entry.keys())[0], body = list(entry.values())[0], username = session["username"])
 		else:
 			return redirect(url_for("input_field_page"))
@@ -200,34 +205,37 @@ def saveEntry(entryId, newTitle, newBody):
 # Saves blog entry and redirects to edit page
 def save_entry ():
 	flash("Edit saved")
-	saveEntry(request.form['entryId'], request.form['title'], request.form['body'])
+	updateEntry(int(request.form['entryId']), request.form['title'], request.form['body'])
+	# saveEntry(request.form['entryId'], request.form['title'], request.form['body'])
 	return redirect(url_for("edit_page"))
 # Creates new blog if name is unique
 @app.route("/createNewBlog", methods = ["POST"])
 def create_new_blog ():
 	print("hello")
 	if "username" in session:
-		if (checkIfBlogNameInUse(request.form["blogName"])):
+		if not (checkIfBlogNameInUse(request.form["blogName"])):
 			print("hello2")
 			flash("Blog name already in use")
 			return redirect(url_for("new_blog_page"))
 		else:
-			print("hello3")
+			print("----------------------" + str(getMyId(session["username"])))
 			flash("Blog created")
-			createNewBlog(request.form["blogName"])
+			addBlogToDatabase(getMyId(session["username"]), request.form["blogName"])
 			return redirect(url_for("input_field_page"))
 	return render_template(fileNames["login"])
-# Checks if blog is already in database
-# Needs database Integration
-def checkIfBlogNameInUse (name):
-	return name == "test"
+
 
 @app.route("/newentry", methods = ["GET", "POST"])
 # Creates new blog entry if logged on
 # else redirects to login page
 def new_entry_page ():
 	if "username" in session:
-		return render_template(fileNames["newEntry"], myBlogs = get_my_blog_titles(getMyID(session["username"])), username = session["username"])
+		dictBlogs = {}
+		myblogs = get_my_blog_titles(getMyId(session["username"]))
+		for blogtitle in myblogs:
+			dictBlogs[blogID(blogtitle)] = blogtitle
+		print("*******************" + str(myblogs))
+		return render_template(fileNames["newEntry"], myBlogs = dictBlogs, username = session["username"])
 	return render_template(fileNames["login"])
 
 
@@ -237,7 +245,7 @@ def new_entry_page ():
 def create_new_post():
 	if "username" in session:
 		flash("Post Created")
-		add_post(request.form["blogID"], request.form["entryTitle"], request.form["entryBody"])
+		addEntryToDatabase(getMyId(session["username"]), int(request.form["blogID"]), request.form["entryTitle"], request.form["entryBody"])
 		return redirect(url_for("input_field_page"))
 	return render_template(fileNames["login"])
 # adds post to specified blog with specified entrytitle and specified description
@@ -248,12 +256,12 @@ def add_post (blogId, newEntryTitle, newEntryBody):
 # format:{blogid: blog title}
 #Gets all blog titles made
 # Needs database integration
-def get_my_blog_titles (username):
-	return {
-		"123" : "Cat Lovers",
-		"235" : "Billionaire Boys",
-		"344" : "Fruit Haters"
-	}
+# def get_my_blog_titles (username):
+# 	return {
+# 		"123" : "Cat Lovers",
+# 		"235" : "Billionaire Boys",
+# 		"344" : "Fruit Haters"
+# 	}
 #Creates blog with specified title
 #Needs Database integration
 def createNewBlog (name):
