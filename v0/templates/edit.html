@@ -21,7 +21,7 @@ Choose Blog Entry to Edit
 		{% for k in entries[key].keys() %}
 			{% set title = k %}
 			{% set body = entries[key][k] %}
-			<a href={{"/edit?entryId=" + key}}><h3>{{title}}</h3></a>
+			<a href={{"/edit?entryId=" + key|string}}><h3>{{title}}</h3></a>
 			<p>{{body}}</p>
 		{% endfor %}
 	{% endfor %}

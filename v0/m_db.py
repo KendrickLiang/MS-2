@@ -137,6 +137,8 @@ def addBlogToDatabase(userID, blog_title):
     print ("finished addBlogToDatabase")
     db.commit()
     db.close()
+    print(str(userID) + " " + blog_title)
+    print("ADDEDDDDDDDDDDDDDDDDDDDDDDDDDD")
     return True
 
 
@@ -359,6 +361,7 @@ def getMyId(username):
     db.close()
     return userID[0][0]
 
+<<<<<<< HEAD:v0/m_db.py
 addUserToDatabase('coolio1', 'password')
 addUserToDatabase('coolio2', 'password')
 addUserToDatabase('coolio3', 'password')
@@ -376,3 +379,7 @@ print(getBlogs(0, 'blog'))
 
 db.commit()
 db.close()
+=======
+if __name__ == "__main__":
+    print(getBlogs(1, "bread"))
+>>>>>>> 46f73f21d9ab6800a464323116a16ab27e7236f7:v0/db.py
