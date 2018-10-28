@@ -8,7 +8,6 @@ pd 6
 Scenario Two: Your team has been contracted to create a web log hosting site.
 
 
-
  ______   ______   __   __   __       ______   _______     
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\    
 \:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__  
@@ -97,3 +96,15 @@ broke updateBlog (a good break because before it was working for the wrong reaso
 
 michelleT -- 2018-10-26 2:55
 I FIXED UPDATEBLOG. 
+
+michelleT -- 2018-10-27 7:39
+Finished all of the functions in the database
+
+matthewM, nahianS, stefanT, michelleT -- 2018-10-27 11:56
+Worked on incorporating login function and view function between database and app
+
+nahianS, stefanT -- 2018-10-28 3:04
+Finished the project!
+
+michelleT -- 2018-10-28 7:52 
+Added some comments to add clarity 
