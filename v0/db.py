@@ -82,17 +82,15 @@ def addUserToDatabase(username,password):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     global user_count
-    if (checkUserInDatabase(username)):
-        form_response = (user_count, username, password, "")
-        c.execute( usersDB() , form_response )
-        user_count += 1
-        print("finished addUserToDatabase")
-    search = "SELECT username, password FROM users"
-    c.execute(search)
-    users = c.fetchall()
+    if not(checkUserInDatabase(username)):
+        return False;
+    form_response = (user_count, username, password, "")
+    c.execute( usersDB() , form_response )
+    user_count += 1
+    print("finished addUserToDatabase")
     db.commit()
     db.close()
-    return False
+    return True;
 
 def addBlogToDatabase(userID, blog_title):
     '''This function adds the a blog and its corresponding user to the blogs table'''
@@ -143,22 +141,22 @@ def addEntryToDatabase(userID, blogID, entry_title, entry_content):
 
 def hardCode():
     addUserToDatabase ("a_username", "a_password")
-    # addUserToDatabase ("b_username", "b_password")
-    # addUserToDatabase ("c_username", "b_password")
-    #
-    # addBlogToDatabase ( 0 , "BlogOnCats")
-    # addBlogToDatabase ( 0 , "BlogOnDats")
-    # addBlogToDatabase ( 1 , "BlogOnEats")
-    # addBlogToDatabase ( 1 , "BlogOnFats")
-    # addBlogToDatabase ( 2 , "BlogOnGats")
-    # addBlogToDatabase ( 2 , "BlogOnHats")
-    #
-    # addEntryToDatabase ( 0 , 1, "Cat1", "Cats are cool.")
-    # addEntryToDatabase ( 0 , 1, "Cat2", "Cats are so cool.")
-    # addEntryToDatabase ( 0 , 1, "Cat3", "Cats are so so cool.")
-    # addEntryToDatabase ( 1 , 3, "Cat4", "Cats are cool.")
-    # addEntryToDatabase ( 1 , 3, "Cat5", "Cats are so cool.")
-    # addEntryToDatabase ( 2 , 3, "Cat6", "Cats are so so cool.")
+    addUserToDatabase ("b_username", "b_password")
+    addUserToDatabase ("c_username", "b_password")
+
+    addBlogToDatabase ( 0 , "BlogOnCats")
+    addBlogToDatabase ( 0 , "BlogOnDats")
+    addBlogToDatabase ( 1 , "BlogOnEats")
+    addBlogToDatabase ( 1 , "BlogOnFats")
+    addBlogToDatabase ( 2 , "BlogOnGats")
+    addBlogToDatabase ( 2 , "BlogOnHats")
+
+    addEntryToDatabase ( 0 , 1, "Cat1", "Cats are cool.")
+    addEntryToDatabase ( 0 , 1, "Cat2", "Cats are so cool.")
+    addEntryToDatabase ( 0 , 1, "Cat3", "Cats are so so cool.")
+    addEntryToDatabase ( 1 , 3, "Cat4", "Cats are cool.")
+    addEntryToDatabase ( 1 , 3, "Cat5", "Cats are so cool.")
+    addEntryToDatabase ( 2 , 3, "Cat6", "Cats are so so cool.")
 
 hardCode()
 
