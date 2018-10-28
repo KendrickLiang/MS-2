@@ -98,6 +98,7 @@ def entriesDB():
 #     return True;
 
 def addUserToDatabase(username,password):
+    initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     global user_count
@@ -117,6 +118,7 @@ def addUserToDatabase(username,password):
     return True;
 
 def addBlogToDatabase(userID, blog_title):
+    initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -143,6 +145,7 @@ def addBlogToDatabase(userID, blog_title):
 
 
 def addEntryToDatabase(userID, blogID, entry_title, entry_content):
+    initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     global entry_count
