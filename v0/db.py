@@ -99,7 +99,7 @@ def addBlogToDatabase(userID, blog_title):
     global blog_count
     bc = ""
     form_response = (userID, blog_count, blog_title, "")
-    c.execute( blogsDB(), form_response)
+    c.execute( "INSERT INTO blogs (user_id,blog_id,blog_title, entry_id) VALUES( ?, ?, ?, ?)" , form_response)
     #updates userM
     search = "SELECT blog_id FROM users WHERE user_id == " + str(userID)
     c.execute(search)
@@ -140,23 +140,25 @@ def addEntryToDatabase(userID, blogID, entry_title, entry_content):
 
 
 def hardCode():
+        # db = sqlite3.connect(DB_FILE)
+        # c = db.cursor()
     addUserToDatabase ("a_username", "a_password")
     addUserToDatabase ("b_username", "b_password")
     addUserToDatabase ("c_username", "b_password")
 
     addBlogToDatabase ( 0 , "BlogOnCats")
     addBlogToDatabase ( 0 , "BlogOnDats")
-    addBlogToDatabase ( 1 , "BlogOnEats")
-    addBlogToDatabase ( 1 , "BlogOnFats")
-    addBlogToDatabase ( 2 , "BlogOnGats")
-    addBlogToDatabase ( 2 , "BlogOnHats")
+    # addBlogToDatabase ( 1 , "BlogOnEats")
+    # addBlogToDatabase ( 1 , "BlogOnFats")
+    # addBlogToDatabase ( 2 , "BlogOnGats")
+    # addBlogToDatabase ( 2 , "BlogOnHats")
 
     addEntryToDatabase ( 0 , 1, "Cat1", "Cats are cool.")
     addEntryToDatabase ( 0 , 1, "Cat2", "Cats are so cool.")
-    addEntryToDatabase ( 0 , 1, "Cat3", "Cats are so so cool.")
-    addEntryToDatabase ( 1 , 3, "Cat4", "Cats are cool.")
-    addEntryToDatabase ( 1 , 3, "Cat5", "Cats are so cool.")
-    addEntryToDatabase ( 2 , 3, "Cat6", "Cats are so so cool.")
+    # addEntryToDatabase ( 0 , 1, "Cat3", "Cats are so so cool.")
+    # addEntryToDatabase ( 1 , 3, "Cat4", "Cats are cool.")
+    # addEntryToDatabase ( 1 , 3, "Cat5", "Cats are so cool.")
+    # addEntryToDatabase ( 2 , 3, "Cat6", "Cats are so so cool.")
 
 hardCode()
 
