@@ -1,3 +1,16 @@
+####
+User: michelle
+password: tang
+Blog1: Animals
+    Entry1
+        Title: Cats.
+        Entry: Cats are cool.
+Blog2: Plants
+    Entry1
+        Title: Rose
+        Entry: Roses are nice.
+####
+
 #part of gdb
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
@@ -12,21 +25,21 @@ blog_count = 0;
 entry_count = 0;
 
 command0 = """
-CREATE TABLE users(
+CREATE TABLE IF NOT EXISTS users(
 user_id INTEGER PRIMARY KEY,
 username TEXT,
 password TEXT,
 blog_id TEXT)
 """
 command1 = """
-CREATE TABLE blogs(
+CREATE TABLE IF NOT EXISTS blogs(
 user_id INTEGER,
 blog_id INTEGER PRIMARY KEY,
-blog_title TEXT,
+blog_title TEXT
 entry_id TEXT)
 """
 command2 = """
-CREATE TABLE entries(
+CREATE TABLE IF NOT EXISTS entries(
 user_id INTEGER,
 blog_id INTEGER,
 entry_id INTEGER PRIMARY KEY,
@@ -36,6 +49,8 @@ entry_content TEXT)
 c.execute(command0)
 c.execute(command1)
 c.execute(command2)
+
+
 
 def addUserToDatabase(username,password):
     global user_count
@@ -129,7 +144,7 @@ def loginDatabase(username,password):
     print ("LOGIN DENIED")
     return False;
 
-#given userid, return five entries that dont belong to you, estalishes feed
+#Given user_id, return five entries that don't belong to you, establish feed {entryID: {title: content}}
 def getRandomEntries(userID):
     search = "SELECT entry_id, entry_title, entry_content FROM entries WHERE entries.user_id != " + str(userID)
     c.execute(search)
@@ -157,8 +172,8 @@ def returnEntry(entryID):
 
 print(returnEntry(0))
 
-## return a nested dictionary of YOUR contributions {entry_id : {entrytitle:entry content}}
-def getMyUserEntries(userID):
+# return a nested dictionary of YOUR contributions {entry_id : {entrytitle : entry content}}
+def getMyEntries(userID):
     search = "SELECT entry_id, entry_title, entry_content FROM entries WHERE entries.user_id == " + str(userID)
     c.execute(search)
     entries = c.fetchall()
@@ -178,15 +193,12 @@ def get_my_blog_titles(userID):
     blogs = c.fetchall()
     for blog in blogs:
         blog_titles.append(str(blog[0]))
-    #print("finished get_my_blog_titles")
     return blog_titles
-
 print(get_my_blog_titles(0))
 
 def updateEntry(entryID, title, content):
     command = "UPDATE entries SET entry_title = \"{}\", entry_content = \"{}\" WHERE entry_id = {}".format(title, content, entryID)
     c.execute(command)
-
 updateEntry(0, "Newtitle", "newcontent")
 
 def blogID (blogTitle):

@@ -19,17 +19,17 @@ fileNames = {
 def shortenArticleBody (numWords, body):
 	count = 0
 	newBody = ""
-	bodyList = body.split()	
+	bodyList = body.split()
 	while (count < numWords):
 		newBody += bodyList[count] + " "
 		count+=1
 	return newBody + "..."
-	
+
 
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
 	if "username" in session:
-		articles = getRandomBlogs()
+		articles = getRandomEntries()
 		articleKeys = list(articles.keys())
 		articleTitles = []
 		articleBody = [];
@@ -41,7 +41,7 @@ def input_field_page():
 		#print (articleTitles)
 		articleBodyShortened = [];
 		for body in articleBody:
-			articleBodyShortened.append(shortenArticleBody(10, body)) 
+			articleBodyShortened.append(shortenArticleBody(10, body))
 		return render_template(fileNames["feed"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"]) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
@@ -69,7 +69,7 @@ def checkUserInDatabase (username, password):
     return True
 	# Code by database role
 
-def getRandomBlogs ():
+def getRandomEntries ():
     return {
         	"1" : {"Awesome Post1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
 		"2" : {"Awesome Post2" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
@@ -131,7 +131,7 @@ def search_page():
 		#print (articleTitles)
 		articleBodyShortened = [];
 		for body in articleBody:
-			articleBodyShortened.append(shortenArticleBody(10, body)) 
+			articleBodyShortened.append(shortenArticleBody(10, body))
 		return render_template(fileNames["search"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"])
 	# print (request.args["queryString"])
 	return render_template(fileNames["search"], username = session["username"])
@@ -198,7 +198,7 @@ def create_new_blog ():
 			flash("Blog created")
 			createNewBlog(request.form["blogName"])
 			return redirect(url_for("input_field_page"))
-	return render_template(fileNames["login"]) 
+	return render_template(fileNames["login"])
 
 def checkIfBlogNameInUse (name):
 	return name == "test"
