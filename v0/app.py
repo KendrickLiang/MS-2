@@ -14,18 +14,13 @@ fileNames = {
 	"signUp": "signup.html",
 	"newBlog": "newblog.html",
 	"newEntry": "newentry.html",
+	"newEntryError": "newentryerror.html",
 	"viewPage": "viewPage.html"
 }
 # Returns a shortened version of the blog description
 def shortenArticleBody (numWords, body):
 	return body
-# 	count = 0
-# 	newBody = ""
-# 	bodyList = body.split()
-# 	while (count < numWords):
-# 		newBody += bodyList[count] + " "
-# 		count+=1
-# 	return newBody + "..."
+
 
 #feed/login
 # access feed of logged-in user
@@ -45,7 +40,7 @@ def input_field_page():
 		#print (articleTitles)
 		articleBodyShortened = [];
 		for body in articleBody:
-			articleBodyShortened.append(shortenArticleBody(10, body))
+			articleBodyShortened.append(shortenArticleBody(20, body))
 		return render_template(fileNames["feed"], keys = articleKeys, titles = articleTitles, bodies = articleBodyShortened, username = session["username"]) #Still missing arguments that will be going in
 	return render_template(fileNames["login"])
 
@@ -232,6 +227,8 @@ def new_entry_page ():
 	if "username" in session:
 		dictBlogs = {}
 		myblogs = get_my_blog_titles(getMyId(session["username"]))
+		if (len(myblogs) == 0):
+			return render_template(fileNames["newEntryError"], username = session["username"])
 		for blogtitle in myblogs:
 			dictBlogs[blogID(blogtitle)] = blogtitle
 		print("*******************" + str(myblogs))
@@ -245,7 +242,7 @@ def new_entry_page ():
 def create_new_post():
 	if "username" in session:
 		flash("Post Created")
-		addEntryToDatabase(getMyId(session["username"]), int(request.form["blogID"]), request.form["entryTitle"], request.form["entryBody"])
+		addEntryToDatabase(getMyId(session["username"]), int(request.form["blogID"]), request.form["entryTitle"].strip(), request.form["entryBody"].strip())
 		return redirect(url_for("input_field_page"))
 	return render_template(fileNames["login"])
 # adds post to specified blog with specified entrytitle and specified description
