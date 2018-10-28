@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, url_for, redirect, flash
 import os
+import db
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -25,11 +26,11 @@ def shortenArticleBody (numWords, body):
 		count+=1
 	return newBody + "..."
 
-
+#feed/login
 @app.route("/", methods = ["POST", "GET"])
 def input_field_page():
 	if "username" in session:
-		articles = getRandomEntries()
+		articles = db.getRandomEntries(db.getMyId(session["username"]))
 		articleKeys = list(articles.keys())
 		articleTitles = []
 		articleBody = [];
@@ -48,33 +49,25 @@ def input_field_page():
 @app.route("/createaccount", methods=["POST"])
 def create_account ():
 	if (request.form['password'] == request.form['passwordConfirmation']):
-		if (check_username_in_db(request.form['username'])):
+		if not(db.checkUserInDatabase(request.form['username'])):
 			flash("Username already taken")
 			return redirect(url_for("sign_up_page"))
 		else:
 			flash("Account created successfully")
-			save_user_signup(request.form['username'], request.form['password'])
+			db.addUserToDatabase(request.form['username'], request.form['password'])
+			session['username']=request.form['username']
 			return redirect(url_for("input_field_page"))
 	else:
 		flash("Password do not match")
 		return redirect(url_for("sign_up_page"))
 
-def check_username_in_db (username):
-	return username == "test"
 
-def save_user_signup (username, password):
-	print("Saving " + username + " with password " + password)
-# change to loginDatabase
-def checkUserInDatabase (username, password):
-    return True
-	# Code by database role
-
-def getRandomEntries ():
-    return {
-        	"1" : {"Awesome Post1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
-		"2" : {"Awesome Post2" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
-		"3" : {"Awesome Post3" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
-        }
+# def getRandomEntries ():
+#     return {
+#         	"1" : {"Awesome Post1" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
+# 		"2" : {"Awesome Post2" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."},
+# 		"3" : {"Awesome Post3" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis ante sed lectus ultrices, eget accumsan augue consectetur. Nullam non urna et eros viverra aliquam vitae eu dui. Nulla a mauris fringilla, placerat orci vel, convallis nisi. Mauris dapibus euismod tempus. Etiam blandit nunc mi, quis tristique dui dapibus accumsan. Maecenas non hendrerit magna. Etiam at faucibus ante. Maecenas a volutpat dolor. In tristique libero id sagittis cursus. Mauris non viverra mi, in placerat purus."}
+#         }
 
 def getEntryByID(id):
 	if (id == "1"):
@@ -91,7 +84,7 @@ def redirect_login ():
 @app.route("/signup", methods = ["POST", "GET"])
 def sign_up_page ():
 	if "username" in session:
-		return render_template(fileNames["feed"], articles = getRandomBlogs())
+		return render_template(fileNames["feed"], articles = db.getRandomEntries(db.getMyId(session["username"])))
 	return render_template(fileNames["signUp"])
 
 #def addUserToDatabase (username, password):
@@ -100,7 +93,7 @@ def sign_up_page ():
 
 @app.route("/auth", methods = ["POST"])
 def auth_page():
-	if checkUserInDatabase(request.form['username'], request.form['password']):
+	if db.login(request.form['username'], request.form['password']):
 		session["username"] = request.form["username"]
 	else:
 		flash("Invalid Login Credentials.")
