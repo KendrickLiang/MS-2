@@ -1,18 +1,8 @@
-# username: michelle
-# blog1:
-#     id: 1
-#     title: animals
-#
-#     entry1:
-#         title: Cats
-#         content: cats are cool.
-#
-# username: matthew
-# blog1:
-#     id:1
-#     entry1:
-#         title: cats
-#         content:cats are cool.
+# MS^2
+# Matthew Ming, Sajed Nahian. Stefan Tan, Michelle Tang
+# SoftDev1 pd6
+# P #00: Da Art of Storytellin'
+
 #part of gdb
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitates CSV I/O
@@ -66,38 +56,8 @@ def blogsDB():
 def entriesDB():
     return "INSERT INTO entries(user_id, blog_id, entry_id, entry_title, entry_content) VALUES( ?, ?, ?, ?, ?)"
 
-
-# def checkUserInDatabase(username):
-#     '''This function checks if the username exists in the database already'''
-#     db = sqlite3.connect(DB_FILE)
-#     c = db.cursor()
-#     search = "SELECT username FROM users"
-#     c.execute(search)
-#     users = c.fetchall()
-#     for user in users:
-#         if (user[0] == username):
-#             print ("a user already exists")
-#             return False
-#     db.commit()
-#     db.close()
-#     return True
-#
-# def addUserToDatabase(username,password):
-#     '''This function adds a username and password to the users table'''
-#     db = sqlite3.connect(DB_FILE)
-#     c = db.cursor()
-#     global user_count
-#     if not(checkUserInDatabase(username)):
-#         return False;
-#     form_response = (user_count, username, password, "")
-#     c.execute( usersDB() , form_response )
-#     user_count += 1
-#     print("finished addUserToDatabase")
-#     db.commit()
-#     db.close()
-#     return True;
-
 def addUserToDatabase(username,password):
+    '''This function checks if the username exists and adds a username and password to the users table'''
     initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -118,6 +78,7 @@ def addUserToDatabase(username,password):
     return True;
 
 def addBlogToDatabase(userID, blog_title):
+    '''This function adds a blog and updates blogid in users table'''
     initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -145,6 +106,7 @@ def addBlogToDatabase(userID, blog_title):
 
 
 def addEntryToDatabase(userID, blogID, entry_title, entry_content):
+    '''This function adds an entry and updates entryid in blogs table'''
     initCount()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -167,32 +129,7 @@ def addEntryToDatabase(userID, blogID, entry_title, entry_content):
     db.close()
     return True
 
-
-
-# def hardCode():
-#         # db = sqlite3.connect(DB_FILE)
-#         # c = db.cursor()
-#     addUserToDatabase ("a_username", "a_password")
-#     addUserToDatabase ("b_username", "b_password")
-#     addUserToDatabase ("c_username", "b_password")
-#
-#     addBlogToDatabase ( 0 , "BlogOnCats")
-#     addBlogToDatabase ( 0 , "BlogOnDats")
-#     # addBlogToDatabase ( 1 , "BlogOnEats")
-#     # addBlogToDatabase ( 1 , "BlogOnFats")
-#     # addBlogToDatabase ( 2 , "BlogOnGats")
-#     # addBlogToDatabase ( 2 , "BlogOnHats")
-#
-#     addEntryToDatabase ( 0 , 1, "Cat1", "Cats are cool.")
-#     addEntryToDatabase ( 0 , 1, "Cat2", "Cats are so cool.")
-#     # addEntryToDatabase ( 0 , 1, "Cat3", "Cats are so so cool.")
-#     # addEntryToDatabase ( 1 , 3, "Cat4", "Cats are cool.")
-#     # addEntryToDatabase ( 1 , 3, "Cat5", "Cats are so cool.")
-#     # addEntryToDatabase ( 2 , 3, "Cat6", "Cats are so so cool.")
-
-#
-
-#Login functionM
+#Login function
 def login(username,password):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -221,7 +158,7 @@ def getRandomEntries(userID):
     search = "SELECT entry_id, entry_title, entry_content FROM entries WHERE entries.user_id != " + str(userID)
     c.execute(search)
     entries = c.fetchall()
-    d = {}#name=d()
+    d = {}
     counter = 0;
     for entry in entries:
         if counter > 4:
@@ -249,8 +186,6 @@ def returnEntry(entryID):
     db.close()
     return d
 
-# print(returnEntry(0))
-
 ## return a nested dionary of YOUR contributions {entry_id : {entrytitle:entry content}}M
 def getMyUserEntries(userID):
     '''This function returns all the entries of an userID'''
@@ -267,7 +202,6 @@ def getMyUserEntries(userID):
     db.commit()
     db.close()
     return d
-# print(getMyUserEntries(0))
 
 #returns a list of all of YOUR blog titlesM
 def get_my_blog_titles(userID):
@@ -280,12 +214,9 @@ def get_my_blog_titles(userID):
     blogs = c.fetchall()
     for blog in blogs:
         blog_titles.append(str(blog[0]))
-    #print("finished get_my_blog_titles") M
     db.commit()
     db.close()
     return blog_titles
-
-# print(get_my_blog_titles(0))
 
 def updateEntry(entryID, title, content):
     '''This function edits an entry in the entries table'''
@@ -295,8 +226,6 @@ def updateEntry(entryID, title, content):
     c.execute(command)
     db.commit()
     db.close()
-
-# updateEntry(0, "Newtitle", "newcontent")
 
 def blogID (blogTitle):
     '''This function returns the blogID given the title of the blog'''
@@ -330,34 +259,8 @@ def initCount():
     entries = c.fetchall()
     for entry in entries:
         entry_count += 1
-    # print(user_count)
-    # print(blog_count)
-    # print(entry_count)
     db.commit()
     db.close()
-
-# returns a nested dionary {blogID: blogTitle} GET BLOGS TITLES THAT ARENT YOUR OWN M
-# def getBlogs(userID, query):
-#     '''This function returns the blogs of other users'''
-#     initCount()
-#     print("GOOOOOOOOOOOOOOO" + str(user_count))
-#     db = sqlite3.connect(DB_FILE)
-#     c = db.cursor()
-#     d={}
-#     user_counter = user_count
-#     blogs = []
-#     while (user_counter > 0):
-#         if (user_counter != userID):
-#             blogs += get_my_blog_titles(user_counter)
-#         user_counter -= 1
-#     for blog in blogs:
-#         if (blog.find(query) != -1):
-#             d[blogID(blog)] = blog
-#     print("finished getBlogs")
-#     print(blogs)
-#     db.commit()
-#     db.close()
-#     return d
 
 def getBlogs(userID, query):
     '''This function returns the blogs of other users'''
@@ -386,6 +289,7 @@ def getBlogs(userID, query):
     return d
 
 def getBlogs2 (userId, query):
+    '''This function returns a nested dictionary where the entry content has query.'''
     search = "SELECT entry_id, entry_title, entry_content FROM 'entries'"
     initCount()
     db = sqlite3.connect(DB_FILE)
@@ -397,9 +301,6 @@ def getBlogs2 (userId, query):
         if (query in val[2]):
             queriedBlogs[val[0]] = {val[1] : val[2]}
     return queriedBlogs
-
-
-# print (getBlogs(3, "On"))
 
 def checkIfBlogNameInUse(blog_title):
     '''This function checks if the blog_title already exists in the database'''
