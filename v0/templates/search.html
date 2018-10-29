@@ -18,7 +18,7 @@ Search
 {% endblock %}
 {% block content %}
 <form action="/search">
-	<input type="text" name="searchQuery" placeholder="blog title">
+	<input type="text" name="searchQuery" placeholder="entry content">
 	<input type="submit" value="Submit">
 </form>
 {% for i in range(0, keys|length) %}
