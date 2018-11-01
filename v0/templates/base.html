@@ -8,8 +8,22 @@ P #00: Da Art of Storytellin'
 <html>
   <head>
     <title>{% block header %}{% endblock %}</title>
+    <style>
+      body {
+        background-color: #ffdead;
+        font-family: "Times New Roman", Times, serif;
+        font-size:20px;}
+      a {
+        color:green;}
+      input {
+        color:red;
+        background-color: blue;}
+      textarea {
+        color: white;
+        background-color: black;}
+      </style>
   </head>
-  <body>
+  <body style = "text-align:center">
 	{% block nav %}
 	{% endblock %}
 	{% set msgs = get_flashed_messages() %}
@@ -19,5 +33,5 @@ P #00: Da Art of Storytellin'
 <h1>{% block title %} {% endblock %}</h1>
 {% block content %}{% endblock %}
 {% block footer%} &copy MS^2{% endblock %}
-  </body>
+</body>
 </html>
